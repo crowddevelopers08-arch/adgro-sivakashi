@@ -7,17 +7,17 @@ const AdvertisementBanner = () => {
   
   const images = [
     {
-      src: "/wat1.jpeg",
+      src: "/bfaf-1.webp",
       alt: "Hair Transplant Results - Before and After - Case 1",
       technique: "FUE Technique"
     },
     {
-      src: "/wat2.jpeg",
+      src: "/bfaf-2.jpg",
       alt: "Hair Transplant Results - Before and After - Case 2",
       technique: "DHI Technique"
     },
     {
-      src: "/wat3.jpeg",
+      src: "/bfaf-3.jpg",
       alt: "Hair Transplant Results - Before and After - Case 3",
       technique: "Sapphire FUE"
     }
@@ -58,7 +58,9 @@ const AdvertisementBanner = () => {
                 aria-hidden={index !== currentImageIndex}
                 className={`absolute inset-0 transition-opacity duration-700 motion-reduce:transition-none ${index === currentImageIndex ? "opacity-100" : "opacity-0"}`}
               >
-                <Image src={image.src} alt={image.alt} fill className="object-contain" sizes="(max-width: 1023px) 90vw, (max-width: 1450px) 65vw, 1000px" priority={index === 0} />
+                {/* blurred copy fills the empty space so every slide looks the same size */}
+                <Image src={image.src} alt="" aria-hidden="true" fill className="scale-110 object-cover opacity-50 blur-2xl" sizes="200px" />
+                <Image src={image.src} alt={image.alt} fill className="relative object-contain" sizes="(max-width: 1023px) 90vw, (max-width: 1450px) 65vw, 1000px" priority={index === 0} />
               </div>
             ))}
           </div>

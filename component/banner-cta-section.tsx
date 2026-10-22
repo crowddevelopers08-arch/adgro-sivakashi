@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-const desktopBanners = ["/bannrs.png", "/bannr.png"];
-const mobileBanners = ["/siva-mble.png", "/siva-mble-1.png"];
+const desktopBanners = ["/siva-ban-1.png", "/siva-ban.png"];
+const mobileBanners = ["/siva-mbles-2.png", "/siva-mble-2.png"];
 
 const BannerCtaSection = () => {
   const [currentDesktopSlide, setCurrentDesktopSlide] = useState(0);

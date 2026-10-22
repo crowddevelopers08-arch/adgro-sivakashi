@@ -61,7 +61,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${outfit.variable} antialiased`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${outfit.variable} antialiased`}>
       <head>
         {/* Google Tag Manager */}
         <Script

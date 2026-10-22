@@ -18,7 +18,7 @@ const faqs = [
       "Yes — hair transplanted using your own follicles is genetically resistant to the hormone that causes baldness, making the results permanent. You can style, cut, and wash it just like your natural hair.",
   },
   {
-    question: "What non-surgical treatments do you offer at the Velachery hair clinic?",
+    question: "What non-surgical treatments do you offer at the Sivakasi hair clinic?",
     answer:
       "We offer Advanced GelPRP, oxygen laser therapy, mesotherapy, Regen Pro 9, and cosmetic hair systems — all non-surgical options for patients who want to improve hair density without going under the knife.",
   },
@@ -28,9 +28,9 @@ const faqs = [
       "Hair loss is graded on the Norwood scale (for men) and Ludwig scale (for women). During your free consultation, our trichologist will assess your stage and explain which treatments are most effective at that point.",
   },
   {
-    question: "Do you offer consultations for patients outside Velachery?",
+    question: "Do you offer consultations for patients outside Sivakasi?",
     answer:
-      "Absolutely. While our Velachery clinic serves South Chennai, we have 60+ clinics across India. We also offer initial consultations over call so you can understand your options before visiting in person.",
+      "Absolutely. While our Sivakasi clinic serves South Chennai, we have 60+ clinics across India. We also offer initial consultations over call so you can understand your options before visiting in person.",
   },
 ];
 
@@ -81,7 +81,7 @@ const FAQSection = () => {
             Still have questions?
           </p>
           <a
-            href="tel:+918390856789"
+            href="tel:+919610356789"
             className="text-lg sm:text-xl font-outfit underline underline-offset-4 text-[#e82625]"
           >
             Contact us

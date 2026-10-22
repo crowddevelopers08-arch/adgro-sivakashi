@@ -34,96 +34,71 @@ const AdvertisementBanner = () => {
   }, [images.length]);
 
   return (
-    <div className="relative w-full max-w-6xl mt-10 max-[470px]:mt-0 mx-auto bg-gradient-to-br from-[#0f0505] via-[#1f0a0a] to-[#e82625] p-4 sm:p-5 md:p-6 rounded-lg md:rounded-xl shadow-lg md:shadow-xl overflow-hidden">
-      
-      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 md:gap-10">
-        
-        {/* Left Section - Main Content */}
-        <div className="flex-1 space-y-4 sm:space-y-5">
-          
-          <div className="mb-2 sm:mb-3">
-            <div className="inline-block px-3 py-1 sm:px-4 sm:py-1 bg-[#e82625] rounded-full shadow-lg">
-              <span className="text-white font-bold text-sm sm:text-base">✓ Permanent Solution</span>
-            </div>
+    <section className="mx-auto my-6 w-[calc(100%-2rem)] max-w-[1400px] sm:my-8 sm:w-[calc(100%-3rem)] overflow-hidden rounded-[24px] border border-white/10 bg-[#0f0505] shadow-xl sm:rounded-[32px]">
+      <div className="grid gap-4 p-5 sm:p-6 lg:grid-cols-2 lg:items-end lg:gap-10 lg:px-8 lg:py-6">
+        <div className="min-w-0 space-y-4">
+          <div className="inline-flex items-center rounded-full border border-[#e82625]/30 bg-[#e82625]/10 px-4 py-2">
+<span className="text-white font-bold text-sm sm:text-base">✓ Permanent Solution</span>
           </div>
-          
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+          <h2 className="text-[28px] sm:text-[36px] lg:text-[44px] font-bold text-white leading-tight">
             Hair Transplant
-          </h1>
-          
-          <p className="text-sm sm:text-base md:text-lg text-white/90 max-w-xl">
+          </h2>
+        </div>
+          <p className="text-[14px] sm:text-[15px] leading-[1.85] text-white/80 max-w-xl">
             Consider investing in a permanent, hassle-free solution with our hair transplantation procedure. Our advanced techniques ensure natural-looking results with minimal scarring and downtime.
           </p>
-          
-          <div className="flex flex-wrap gap-3 pt-2">
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5 rounded-full bg-[#e82625]/20 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-[#e82625]"></div>
+      </div>
+
+      <div className="mx-4 grid overflow-hidden rounded-2xl border border-white/10 bg-[#1f0a0a] sm:mx-6 lg:mx-8 lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[minmax(0,1fr)_320px]">
+        <div className="min-w-0 bg-[#0f0505] p-3 sm:p-4">
+          <div className="relative h-[clamp(160px,50vw,340px)] w-full overflow-hidden rounded-xl lg:h-[clamp(260px,42svh,420px)]">
+            {images.map((image, index) => (
+              <div
+                key={image.src}
+                aria-hidden={index !== currentImageIndex}
+                className={`absolute inset-0 transition-opacity duration-700 motion-reduce:transition-none ${index === currentImageIndex ? "opacity-100" : "opacity-0"}`}
+              >
+                <Image src={image.src} alt={image.alt} fill className="object-contain" sizes="(max-width: 1023px) 90vw, (max-width: 1450px) 65vw, 1000px" priority={index === 0} />
               </div>
-              <span className="text-white text-sm">FUE & DHI Techniques</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5 rounded-full bg-[#e82625]/20 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-[#e82625]"></div>
-              </div>
-              <span className="text-white text-sm">No Linear Scar</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5 rounded-full bg-[#e82625]/20 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-[#e82625]"></div>
-              </div>
-              <span className="text-white text-sm">3-5 Days Recovery</span>
-            </div>
+            ))}
           </div>
-          
-          {/* CTA Button */}
-          <div className="pt-4">
-            <a href="#form">
-              <button className="bg-white text-[#e82625] font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors shadow-lg text-sm sm:text-base inline-flex items-center gap-2 group">
+          <div className="mt-3 grid grid-cols-3 gap-2" aria-label="Select hair transplant result">
+            {images.map((image, index) => (
+              <button
+                key={image.src}
+                type="button"
+                onClick={() => setCurrentImageIndex(index)}
+                aria-pressed={currentImageIndex === index}
+                className={`min-h-12 min-w-0 rounded-lg border px-2 py-2 text-[11px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:text-[13px] ${index === currentImageIndex ? "border-[#e82625] bg-[#e82625] text-white" : "border-white/10 bg-white/[0.04] text-white/70 hover:bg-white/10"}`}
+              >
+                {image.technique}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex min-w-0 flex-col justify-center gap-5 border-t border-white/10 p-5 sm:p-6 lg:border-l lg:border-t-0">
+          <ul className="m-0 grid list-none gap-5 p-0">
+            {["FUE & DHI Techniques", "No Linear Scar", "3-5 Days Recovery"].map((feature, index) => (
+              <li key={feature} className="flex items-start gap-3">
+                <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#e82625]/30 text-[10px] font-bold text-[#e82625]">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="pt-1 text-[13px] font-medium leading-relaxed text-white/90">{feature}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="h-px bg-white/10" />
+            <a href="#form" className="w-full sm:w-auto justify-center bg-[#e82625] text-white font-bold py-3.5 px-4 rounded-xl hover:bg-[#c41e1d] transition-colors shadow-lg text-sm sm:text-base inline-flex items-center gap-2 group">
                 <span>Book Consultation</span>
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </button>
             </a>
-          </div>
-        </div>
-        
-        {/* Right Section - Carousel */}
-        <div className="flex-1 flex justify-center lg:justify-end items-center w-full max-w-md lg:max-w-lg">
-          <div className="relative w-full max-w-[300px] sm:max-w-[340px] md:max-w-[380px] lg:max-w-[420px]">
-            {/* Image Carousel - Slightly increased heights */}
-            <div className="relative w-full h-[180px] sm:h-[200px] md:h-[220px] lg:h-[240px]">
-              {images.map((image, index) => (
-                <div
-                  key={index}
-                  className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                    index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-                  }`}
-                >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    className="object-cover rounded-lg shadow-2xl"
-                    priority={index === 0}
-                    sizes="(max-width: 470px) 300px, (max-width: 640px) 340px, (max-width: 768px) 380px, 420px"
-                  />
-                </div>
-              ))}
-            </div>
-            
-            {/* Dynamic Technique Badge */}
-            <div className="absolute -top-3 -right-3 bg-[#e82625] text-white text-xs sm:text-sm font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-lg transition-opacity duration-500">
-              {images[currentImageIndex].technique}
-            </div>
-          </div>
         </div>
       </div>
-      
-      {/* Bottom Banner */}
-      <div className="relative z-10 mt-6 sm:mt-8 pt-4 border-t border-white/20">
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border-t border-white/10 bg-white/[0.03] px-5 py-5 sm:justify-between sm:px-6 lg:px-8">
           <p className="text-white/90 text-xs sm:text-sm font-medium">
             Adgro Ambattur | Chennai
           </p>
@@ -133,9 +108,8 @@ const AdvertisementBanner = () => {
           <p className="text-white/90 text-xs sm:text-sm font-medium flex items-center gap-1">
             <span className="text-[#e82625]">✓</span> EMI Available
           </p>
-        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

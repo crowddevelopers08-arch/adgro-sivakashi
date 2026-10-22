@@ -178,7 +178,7 @@ export default function PromoHeroSlider() {
             </a>
 
             <a
-              href="tel:+918390856789"
+              href="tel:+919610356789"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-[#111111]/10 bg-[#111111] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#222222]"
             >
               <PhoneCall className="size-4" />

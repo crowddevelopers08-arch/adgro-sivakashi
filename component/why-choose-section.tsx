@@ -113,88 +113,48 @@ const features = [
 
 const WhyChooseSection = () => {
   return (
-    <section className="w-full bg-white py-12 md:py-16 overflow-hidden">
-
-      {/* Marquee keyframe */}
-      <style>{`
-        @keyframes marquee-scroll {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .marquee-track {
-          display: flex;
-          width: max-content;
-          animation: marquee-scroll 18s linear infinite;
-        }
-        .marquee-track:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
-
+    <section className="w-full py-8 md:py-10">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
         {/* Heading */}
-        <h2 className="text-2xl sm:text-3xl md:text-[32px] font-bold text-gray-900 text-center mb-4 leading-snug">
-          We Treat Every Hair Problem — Not Just the Obvious Ones
-        </h2>
+        <div className="text-center max-w-[760px] mx-auto mb-6 md:mb-8">
+          <h2 className="text-[22px] sm:text-3xl md:text-[32px] font-bold text-gray-900 mb-2 leading-snug">
+            We Treat Every Hair Problem — Not Just the Obvious Ones
+          </h2>
+          <p className="text-gray-500 text-sm sm:text-[15px] leading-relaxed">
+            Whether you're noticing early thinning or dealing with complete baldness, our Sivakasi hair clinic has a targeted solution for every stage.
+          </p>
+        </div>
 
-        {/* Subtext */}
-        <p className="text-gray-500 text-sm sm:text-[15px] text-center max-w-[720px] mx-auto mb-10 max-sm:mb-5 leading-relaxed">
-          Whether you're noticing early thinning or dealing with complete baldness, our Velachery hair clinic has a targeted solution for every stage.
-        </p>
-      </div>
-
-      {/* ── MOBILE: auto-scrolling single row ── */}
-      <div className="md:hidden overflow-hidden">
-        <div className="marquee-track gap-4 px-4">
-          {[...features, ...features].map((feature, i) => (
+        {/* Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-4">
+          {features.map((feature) => (
             <div
-              key={i}
-              className="flex-shrink-0 w-[220px] bg-[#fff5f5] border border-[#fdd] rounded-xl p-5 flex flex-col items-center text-center gap-3 mx-2"
+              key={feature.id}
+              className="group relative grid min-w-0 grid-cols-[48px_minmax(0,1fr)] items-center gap-x-3 gap-y-3 md:block overflow-hidden bg-white rounded-2xl border border-[#fdd] p-4 md:p-5 shadow-sm hover:shadow-xl motion-safe:hover:-translate-y-1 transition-all duration-300 motion-reduce:transition-none"
             >
-              <div className="flex items-center justify-center scale-75">
-                {feature.icon}
+              {/* Big faded number */}
+              <span className="absolute top-2 right-3 text-[52px] md:-top-3 md:right-4 md:text-[84px] font-extrabold leading-none text-[#e82625]/[0.07] select-none">
+                {String(feature.id).padStart(2, "0")}
+              </span>
+
+              {/* Icon tile */}
+              <div className="relative flex items-center justify-center w-12 h-12 md:w-[60px] md:h-[60px] rounded-xl bg-[#fff5f5] border border-[#fdd] md:mb-3 group-hover:bg-[#ffe9e9] transition-colors duration-300">
+                <div className="scale-[0.6] md:scale-[0.65] shrink-0">{feature.icon}</div>
               </div>
-              <p className="text-[#e82625] text-[13px] font-bold leading-snug">
+
+              <h3 className="relative min-w-0 pr-8 text-[#e82625] text-[16px] md:text-[17px] font-bold leading-snug md:mb-1 md:pr-0">
                 {feature.title}
-              </p>
-              <p className="text-[#202020] text-[11px] leading-snug">
+              </h3>
+              <p className="relative col-span-2 text-[#202020] text-[13px] leading-[1.75] md:text-sm md:leading-relaxed">
                 {feature.text}
               </p>
+
+              {/* Bottom accent line */}
+              <span className="absolute bottom-0 left-0 h-1 w-0 bg-[#e82625] group-hover:w-full transition-all duration-500" />
             </div>
           ))}
         </div>
       </div>
-
-      {/* ── DESKTOP: existing 4+2 grid ── */}
-      <div className="hidden md:block max-w-[1400px] mx-auto px-4 sm:px-6">
-        <div className="flex flex-col gap-5">
-          <div className="grid grid-cols-4 gap-5">
-            {features.slice(0, 4).map((feature) => (
-              <div
-                key={feature.id}
-                className="bg-[#fff5f5] border border-[#fdd] rounded-xl p-6 flex flex-col items-center text-center gap-3"
-              >
-                <div className="flex items-center justify-center">{feature.icon}</div>
-                <p className="text-[#e82625] text-[15px] font-bold leading-snug">{feature.title}</p>
-                <p className="text-[#202020] text-sm leading-snug">{feature.text}</p>
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-center gap-5">
-            {features.slice(4, 6).map((feature) => (
-              <div
-                key={feature.id}
-                className="bg-[#fff5f5] border border-[#fdd] rounded-xl p-6 flex flex-col items-center text-center gap-3 w-full max-w-[300px]"
-              >
-                <div className="flex items-center justify-center">{feature.icon}</div>
-                <p className="text-[#e82625] text-[15px] font-bold leading-snug">{feature.title}</p>
-                <p className="text-[#202020] text-sm leading-snug">{feature.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
     </section>
   );
 };

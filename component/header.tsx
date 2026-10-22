@@ -5,12 +5,13 @@ import Image from "next/image";
 
 type Props = {
   logoSrc?: string;
-  phone?: string;   // "+91 8390856789 buttonText?: string; // "Call Now"
+  phone?: string;
+  buttonText?: string;
 };
 
 export default function GrohairTopBar({
   logoSrc = "/ambatur-logo.jpg",
-  phone = "+91 8390856789",
+  phone = "+91 9610356789",
   buttonText = "Call Now",
 }: Props) {
   const telHref = `tel:${phone.replace(/\s+/g, "")}`;
@@ -33,10 +34,7 @@ export default function GrohairTopBar({
           <div className="flex items-center justify-between py-3 xs:py-3.5 sm:py-4 md:py-4 lg:py-4.5 xl:py-5 2xl:py-5.5">
             {/* Left: Logo - Significantly larger on larger screens */}
             <div className="flex items-center">
-              <div className="relative h-[55px] w-[180px] xs:h-[48px] xs:w-[170px] 
-                            sm:h-[50px] sm:w-[180px] md:h-[55px] md:w-[200px] 
-                            lg:h-[65px] lg:w-[250px] xl:h-[75px] xl:w-[300px] 
-                            2xl:h-[85px] 2xl:w-[350px]">
+              <div className="relative h-[55px] w-[180px] xs:h-[48px] xs:w-[170px] sm:h-[50px] sm:w-[180px] md:h-[55px] md:w-[200px] lg:h-[65px] lg:w-[250px] xl:h-[75px] xl:w-[300px] 2xl:h-[85px] 2xl:w-[350px]">
                 <Image
                   src={logoSrc}
                   alt="Advanced GloSkin"
@@ -54,40 +52,14 @@ export default function GrohairTopBar({
                 type="button"
                 onClick={handleCallClick}
                 aria-label={`Call ${phone}`}
-                className="
-                  inline-flex items-center justify-center
-                  text-white font-bold
-                  whitespace-nowrap
-                  transition-all duration-200
-                  hover:scale-[1.03]
-                  active:scale-[0.98]
-                  hover:shadow-lg
-                  px-6 py-2.5
-                  xs:px-6 xs:py-2.5
-                  rounded-[10px]
-                  sm:px-7 sm:py-3
-                  md:px-6 md:py-2.5
-                  lg:px-6 lg:py-2.5
-                  xl:px-6 xl:py-2.5
-                  2xl:px-7 2xl:py-3
-                  cursor-pointer
-                "
+                className="inline-flex items-center justify-center text-white font-bold whitespace-nowrap transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] hover:shadow-lg px-6 py-2.5 xs:px-6 xs:py-2.5 rounded-[10px] sm:px-7 sm:py-3 md:px-6 md:py-2.5 lg:px-6 lg:py-2.5 xl:px-6 xl:py-2.5 2xl:px-7 2xl:py-3 cursor-pointer"
                 style={{
                   backgroundColor: "#ea2424", // This creates the oval/pill shape
                 }}
               >
                 {/* Phone icon - Reduced on desktop */}
                 <svg
-                  className="
-                    w-4 h-4
-                    xs:w-4 xs:h-4
-                    sm:w-4.5 sm:h-4.5
-                    md:w-4 md:h-4
-                    lg:w-4 lg:h-4
-                    xl:w-4 xl:h-4
-                    2xl:w-4.5 2xl:h-4.5
-                    mr-2 xs:mr-2 sm:mr-2.5 md:mr-2 lg:mr-2 xl:mr-2 2xl:mr-2.5
-                  "
+                  className="w-4 h-4 xs:w-4 xs:h-4 sm:w-4.5 sm:h-4.5 md:w-4 md:h-4 lg:w-4 lg:h-4 xl:w-4 xl:h-4 2xl:w-4.5 2xl:h-4.5 mr-2 xs:mr-2 sm:mr-2.5 md:mr-2 lg:mr-2 xl:mr-2 2xl:mr-2.5"
                   viewBox="0 0 24 24"
                   fill="none"
                   aria-hidden="true"
@@ -98,10 +70,7 @@ export default function GrohairTopBar({
                   />
                 </svg>
 
-                <span className="
-                  text-sm xs:text-base sm:text-lg md:text-base lg:text-base xl:text-base 2xl:text-lg
-                  font-semibold
-                ">
+                <span className="text-sm xs:text-base sm:text-lg md:text-base lg:text-base xl:text-base 2xl:text-lg font-semibold">
                   {buttonText}
                 </span>
               </button>

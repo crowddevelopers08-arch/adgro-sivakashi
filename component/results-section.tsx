@@ -44,7 +44,7 @@ const extendedCards = [
 const DonationCards = () => {
   const [index, setIndex] = useState(CLONES);
   const [cardsPerView, setCardsPerView] = useState(2);
-  const trackRef = useRef(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const total = cards.length;
 
   // ✅ Detect screen size
@@ -71,14 +71,14 @@ const DonationCards = () => {
 
     if (index === total + CLONES) {
       setTimeout(() => {
-        trackRef.current.style.transition = "none";
+        if (trackRef.current) trackRef.current.style.transition = "none";
         setIndex(CLONES);
       }, 500);
     }
 
     if (index === 0) {
       setTimeout(() => {
-        trackRef.current.style.transition = "none";
+        if (trackRef.current) trackRef.current.style.transition = "none";
         setIndex(total);
       }, 500);
     }

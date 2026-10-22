@@ -12,7 +12,7 @@ const trustPoints = [
 
 const TrustSection = () => {
   return (
-    <section className="w-full bg-white py-8 md:py-20">
+    <section className="w-full bg-white py-8 md:py-10">
 
       {/* ══════════ MOBILE LAYOUT ══════════ */}
       <div className="md:hidden flex flex-col px-5 gap-5">
@@ -31,28 +31,70 @@ const TrustSection = () => {
           </span>
         </div>
 
-        {/* 3. USP circles — 3 col grid */}
-        <div className="grid grid-cols-3 gap-3">
-          {trustPoints.map((point, i) => (
-            <div key={i} className="flex flex-col items-center gap-1.5 text-center">
-              <div
-                className={`w-[72px] h-[72px] rounded-full flex items-center justify-center shadow-md ${
-                  i % 2 === 0 ? "bg-[#e82625]" : "bg-white border-2 border-[#e82625]"
-                }`}
-              >
-                <span className={`text-[13px] font-extrabold ${i % 2 === 0 ? "text-white" : "text-[#e82625]"}`}>
-                  {point.stat}
-                </span>
-              </div>
-              <p className="text-[10px] font-semibold text-[#202020] leading-tight w-[72px]">
-                {point.label}
-              </p>
+        {/* Mobile trust roadmap */}
+          <div className="w-full min-w-0 py-2">
+            <div className="relative mx-auto h-[540px] w-full max-w-[430px]">
+              <svg aria-hidden="true" className="absolute inset-0 h-full w-full" viewBox="0 0 480 540" preserveAspectRatio="none" fill="none">
+                <path d="M 240 45 C 300 45 300 135 240 135 S 180 225 240 225 S 300 315 240 315 S 180 405 240 405 S 300 495 240 495" stroke="#fde4e4" strokeWidth="7" strokeLinecap="round" />
+                <path className="trust-route" d="M 240 45 C 300 45 300 135 240 135 S 180 225 240 225 S 300 315 240 315 S 180 405 240 405 S 300 495 240 495" stroke="#e82625" strokeWidth="3" strokeLinecap="round" pathLength="100" strokeDasharray="10 90" />
+              </svg>
+              <ol aria-label="Why patients trust us" className="absolute inset-0 m-0 list-none p-0">
+                {trustPoints.map((point, index) => (
+                  <li
+                    key={point.label}
+                    className="trust-milestone absolute left-0 flex h-[90px] w-full items-center"
+                    style={{ top: `${index * 90}px`, "--trust-delay": `${index * 0.9}s` } as React.CSSProperties}
+                  >
+                    <span aria-hidden="true" className="trust-dot absolute left-1/2 z-10 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border-[5px] border-white bg-[#e82625] text-[9px] font-bold text-white shadow-[0_0_0_1px_#fbd4d4]">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span aria-hidden="true" className={`absolute top-1/2 h-px w-[11%] bg-[#e82625]/25 ${index % 2 === 0 ? "right-1/2" : "left-1/2"}`} />
+                    <div className={`trust-tile relative flex h-[84px] w-[39%] flex-col items-center justify-center gap-1 rounded-2xl border border-[#e82625]/10 bg-white px-2 py-2 text-center shadow-[0_4px_18px_rgba(100,30,30,0.04)] sm:px-3 ${index % 2 === 0 ? "mr-auto" : "ml-auto"}`}>
+                      <span className="block text-[20px] font-extrabold leading-none tracking-tight text-[#e82625] sm:text-[23px]">{point.stat}</span>
+                      <h3 className="flex min-h-[32px] max-w-[170px] items-center justify-center text-balance text-[11px] font-semibold leading-[1.35] text-[#343434] sm:text-[12px]">{point.label}</h3>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </div>
-          ))}
-        </div>
+            <style jsx>{`
+              .trust-route { animation: trust-route-travel 5.4s linear infinite; }
+              .trust-tile {
+                animation: trust-tile-light 5.4s ease-in-out infinite;
+                animation-delay: var(--trust-delay);
+              }
+              .trust-dot {
+                animation: trust-dot-light 5.4s ease-in-out infinite;
+                animation-delay: var(--trust-delay);
+              }
+              @keyframes trust-route-travel {
+                from { stroke-dashoffset: 10; }
+                to { stroke-dashoffset: -90; }
+              }
+              @keyframes trust-tile-light {
+                0%, 24%, 100% {
+                  background-color: white;
+                  border-color: rgba(232, 38, 37, 0.1);
+                  box-shadow: 0 4px 18px rgba(100, 30, 30, 0.04);
+                }
+                7%, 15% {
+                  background-color: #fff5f5;
+                  border-color: rgba(232, 38, 37, 0.35);
+                  box-shadow: 0 5px 20px rgba(232, 38, 37, 0.09);
+                }
+              }
+              @keyframes trust-dot-light {
+                0%, 24%, 100% { box-shadow: 0 0 0 1px #fbd4d4; }
+                7%, 15% { box-shadow: 0 0 0 6px rgba(232, 38, 37, 0.14); }
+              }
+              @media (prefers-reduced-motion: reduce) {
+                .trust-route, .trust-tile, .trust-dot { animation: none; }
+              }
+            `}</style>
+          </div>
 
         {/* 4. Red divider */}
-        <div className="w-12 h-1 rounded-full bg-[#e82625] mx-auto" />
+        {/* <div className="w-12 h-1 rounded-full bg-[#e82625] mx-auto" /> */}
 
         {/* 5. Description */}
         <p className="text-gray-500 text-[13px] leading-[1.8] text-center">
@@ -95,7 +137,7 @@ const TrustSection = () => {
               <span className="text-[#e82625]">Trust.</span>
             </h2>
 
-            <div className="w-14 h-1 rounded-full bg-[#e82625]" />
+            {/* <div className="w-14 h-1 rounded-full bg-[#e82625]" /> */}
 
             <p className="text-gray-500 text-[15px] leading-[1.85]">
               There's no shortage of hair clinics in Chennai. What sets Advanced GroHair apart is
@@ -118,63 +160,66 @@ const TrustSection = () => {
             </div>
           </div>
 
-          {/* RIGHT: scattered USP circles */}
-          <div className="w-[48%]">
-            <div className="relative w-full" style={{ height: "420px" }}>
-
-              {/* TOP-LEFT */}
-              <div className="absolute flex flex-col items-center gap-1 text-center" style={{ top: 10, left: 60 }}>
-                <div className="w-[90px] h-[90px] rounded-full bg-white border-[2.5px] border-[#e82625] flex items-center justify-center shadow-md">
-                  <span className="text-[16px] font-extrabold text-[#e82625]">{trustPoints[1].stat}</span>
-                </div>
-                <p className="text-[13px] font-semibold text-[#202020] w-[100px] leading-tight mt-1">{trustPoints[1].label}</p>
-              </div>
-
-              {/* TOP-RIGHT */}
-              <div className="absolute flex flex-col items-center gap-1 text-center" style={{ top: 10, right: 70 }}>
-                <div className="w-[90px] h-[90px] rounded-full bg-[#e82625] flex items-center justify-center shadow-lg">
-                  <span className="text-[16px] font-extrabold text-white">{trustPoints[2].stat}</span>
-                </div>
-                <p className="text-[13px] font-semibold text-[#202020] w-[100px] leading-tight mt-1">{trustPoints[2].label}</p>
-              </div>
-
-              {/* CENTER (big) */}
-              <div className="absolute flex flex-col items-center gap-1 text-center"
-                style={{ top: "50%", left: "50%", transform: "translate(-50%, -54%)" }}>
-                <div className="w-[115px] h-[115px] rounded-full bg-[#e82625] flex items-center justify-center shadow-2xl">
-                  <span className="text-[20px] font-extrabold text-white">{trustPoints[0].stat}</span>
-                </div>
-                <p className="text-[13px] font-bold text-[#202020] w-[110px] leading-tight mt-1">{trustPoints[0].label}</p>
-              </div>
-
-              {/* LEFT-MID */}
-              <div className="absolute flex flex-col items-center gap-1 text-center"
-                style={{ top: "70%", left: 10, transform: "translateY(-50%)" }}>
-                <div className="w-[90px] h-[90px] rounded-full bg-[#fff5f5] border-[2.5px] border-[#e82625] flex items-center justify-center shadow-md">
-                  <span className="text-[16px] font-extrabold text-[#e82625]">{trustPoints[3].stat}</span>
-                </div>
-                <p className="text-[13px] font-semibold text-[#202020] w-[100px] leading-tight mt-1">{trustPoints[3].label}</p>
-              </div>
-
-              {/* RIGHT-MID */}
-              <div className="absolute flex flex-col items-center gap-1 text-center"
-                style={{ top: "50%", right: 10, transform: "translateY(-50%)" }}>
-                <div className="w-[90px] h-[90px] rounded-full bg-white border-[2.5px] border-[#e82625] flex items-center justify-center shadow-md">
-                  <span className="text-[16px] font-extrabold text-[#e82625]">{trustPoints[4].stat}</span>
-                </div>
-                <p className="text-[13px] font-semibold text-[#202020] w-[100px] leading-tight mt-1">{trustPoints[4].label}</p>
-              </div>
-
-              {/* BOTTOM-CENTER */}
-              <div className="absolute flex flex-col items-center gap-1 text-center"
-                style={{ bottom: -20, left: "60%", transform: "translateX(-50%)" }}>
-                <div className="w-[90px] h-[90px] rounded-full bg-[#e82625] flex items-center justify-center shadow-lg">
-                  <span className="text-[16px] font-extrabold text-white">{trustPoints[5].stat}</span>
-                </div>
-                <p className="text-[13px] font-semibold text-[#202020] w-[100px] leading-tight mt-1">{trustPoints[5].label}</p>
-              </div>
-
+          {/* RIGHT: trust roadmap */}
+          <div className="w-[48%] min-w-0 py-4 lg:py-6">
+            <div className="relative mx-auto h-[540px] w-full max-w-[480px]">
+              <svg aria-hidden="true" className="absolute inset-0 h-full w-full" viewBox="0 0 480 540" preserveAspectRatio="none" fill="none">
+                <path d="M 240 45 C 300 45 300 135 240 135 S 180 225 240 225 S 300 315 240 315 S 180 405 240 405 S 300 495 240 495" stroke="#fde4e4" strokeWidth="7" strokeLinecap="round" />
+                <path className="trust-route" d="M 240 45 C 300 45 300 135 240 135 S 180 225 240 225 S 300 315 240 315 S 180 405 240 405 S 300 495 240 495" stroke="#e82625" strokeWidth="3" strokeLinecap="round" pathLength="100" strokeDasharray="10 90" />
+              </svg>
+              <ol aria-label="Why patients trust us" className="absolute inset-0 m-0 list-none p-0">
+                {trustPoints.map((point, index) => (
+                  <li
+                    key={point.label}
+                    className="trust-milestone absolute left-0 flex h-[90px] w-full items-center"
+                    style={{ top: `${index * 90}px`, "--trust-delay": `${index * 0.9}s` } as React.CSSProperties}
+                  >
+                    <span aria-hidden="true" className="trust-dot absolute left-1/2 z-10 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border-[5px] border-white bg-[#e82625] text-[9px] font-bold text-white shadow-[0_0_0_1px_#fbd4d4]">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span aria-hidden="true" className={`absolute top-1/2 h-px w-[11%] bg-[#e82625]/25 ${index % 2 === 0 ? "right-1/2" : "left-1/2"}`} />
+                    <div className={`trust-tile relative flex h-[80px] w-[39%] flex-col items-center justify-center gap-1 rounded-2xl border border-[#e82625]/10 bg-white px-2 py-2 text-center shadow-[0_4px_18px_rgba(100,30,30,0.04)] lg:px-4 ${index % 2 === 0 ? "mr-auto" : "ml-auto"}`}>
+                      <span className="block text-[22px] font-extrabold leading-none tracking-tight text-[#e82625] lg:text-[25px]">{point.stat}</span>
+                      <h3 className="flex min-h-[32px] max-w-[170px] items-center justify-center text-balance text-[11px] font-semibold leading-[1.35] text-[#343434] lg:text-[13px]">{point.label}</h3>
+                    </div>
+                  </li>
+                ))}
+              </ol>
             </div>
+            <style jsx>{`
+              .trust-route { animation: trust-route-travel 5.4s linear infinite; }
+              .trust-tile {
+                animation: trust-tile-light 5.4s ease-in-out infinite;
+                animation-delay: var(--trust-delay);
+              }
+              .trust-dot {
+                animation: trust-dot-light 5.4s ease-in-out infinite;
+                animation-delay: var(--trust-delay);
+              }
+              @keyframes trust-route-travel {
+                from { stroke-dashoffset: 10; }
+                to { stroke-dashoffset: -90; }
+              }
+              @keyframes trust-tile-light {
+                0%, 24%, 100% {
+                  background-color: white;
+                  border-color: rgba(232, 38, 37, 0.1);
+                  box-shadow: 0 4px 18px rgba(100, 30, 30, 0.04);
+                }
+                7%, 15% {
+                  background-color: #fff5f5;
+                  border-color: rgba(232, 38, 37, 0.35);
+                  box-shadow: 0 5px 20px rgba(232, 38, 37, 0.09);
+                }
+              }
+              @keyframes trust-dot-light {
+                0%, 24%, 100% { box-shadow: 0 0 0 1px #fbd4d4; }
+                7%, 15% { box-shadow: 0 0 0 6px rgba(232, 38, 37, 0.14); }
+              }
+              @media (prefers-reduced-motion: reduce) {
+                .trust-route, .trust-tile, .trust-dot { animation: none; }
+              }
+            `}</style>
           </div>
 
         </div>

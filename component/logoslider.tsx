@@ -27,7 +27,7 @@ const LegacySection = () => {
 
       <div className="bg-black/40 backdrop-blur-sm p-4 md:p-5 rounded-lg mb-4 md:mb-6 border-l-4 border-[#e82625] shadow-lg">
               <p className="text-gray-100 text-xs sm:text-sm md:text-base leading-relaxed max-w-md mx-auto lg:mx-0">
-                Right here in Velachery, Advanced Grohair offers proven hair loss
+                Right here in Sivakasi, Advanced Grohair offers proven hair loss
                 solutions to help you regain your confidence. No matter the cause,
                 our experienced trichologists have the expertise to bring your hair
                 back.
@@ -64,12 +64,12 @@ const LegacySection = () => {
                   src="https://fast.wistia.net/embed/iframe/kzx65cjm9t?seo=true&videoFoam=true" 
                   title="AdGrohair Clinic - Hair Regrowth Forever Video" 
                   allow="autoplay; fullscreen" 
-                  allowtransparency="true" 
+                  allowTransparency={true} 
                   frameBorder="0" 
                   scrolling="no" 
                   className="wistia_embed w-full" 
                   name="wistia_embed" 
-                  msallowfullscreen 
+                  allowFullScreen
                   width="480" 
                   height="270"
                   style={{ aspectRatio: '16/9', display: 'block' }}

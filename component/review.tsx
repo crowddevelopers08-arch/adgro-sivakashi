@@ -2,49 +2,53 @@
 
 import React, { useState } from 'react';
 
+
+const ClinicVideo = ({ src, title, active }: { src: string; title: string; active: boolean }) => (
+  active ? (
+    <iframe
+      src={`${src}embed/`}
+      title={title}
+      className="absolute inset-0 h-full w-full border-0"
+      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share; fullscreen"
+      allowFullScreen
+      loading="lazy"
+      referrerPolicy="strict-origin-when-cross-origin"
+    />
+  ) : null
+);
+
 const ClinicVideosResponsiveGrid = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-
-  const handleCallNow = () => {
-    window.location.href = 'tel:+1234567890';
-  };
+  const [currentDesktopSlide, setCurrentDesktopSlide] = useState(0);
 
   const videos = [
     {
       id: 1,
       title: "Doctor Explaining Hair Loss Evaluation",
-      videoId: "zFfyU2elucI",
+      src: "https://www.instagram.com/reel/Dd37GpUS7Ou/",
       duration: "5:30"
     },
     {
       id: 2,
       title: "Regenera Activa Treatment Overview",
-      videoId: "4vTG4oHMzzA",
+      src: "https://www.instagram.com/reel/Ddly8e8mH3z/",
       duration: "8:45"
     },
     {
       id: 3,
       title: "In-Clinic Hair Treatment Process",
-      videoId: "97RecofOJ3s",
+      src: "https://www.instagram.com/reel/Db5wi6CDeo3/",
       duration: "6:15"
     },
     {
       id: 4,
       title: "Patient Consultation Experience",
-      videoId: "n8g9kLw_RSw",
+      src: "https://www.instagram.com/reel/DX_zudrDWsL/",
       duration: "4:45"
-    },
-    {
-      id: 5,
-      title: "Advanced Hair Restoration Techniques",
-      videoId: "zXlTOuc_fwY",
-      duration: "7:20"
     },
   ];
 
   // For mobile: 1 video per slide
-  const videosPerSlideMobile = 1;
   const totalMobileSlides = videos.length;
 
   // For desktop: 3 videos per slide
@@ -60,15 +64,11 @@ const ClinicVideosResponsiveGrid = () => {
   };
 
   const nextSlideDesktop = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalDesktopSlides);
+    setCurrentDesktopSlide((prev) => (prev + 1) % totalDesktopSlides);
   };
 
   const prevSlideDesktop = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalDesktopSlides) % totalDesktopSlides);
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
+    setCurrentDesktopSlide((prev) => (prev - 1 + totalDesktopSlides) % totalDesktopSlides);
   };
 
   // Create mobile slides array (1 video per slide)
@@ -107,20 +107,14 @@ const ClinicVideosResponsiveGrid = () => {
                     key={slideIndex}
                     className="min-w-full"
                   >
-                    {slideVideos.map((video, videoIndex) => (
+                    {slideVideos.map((video) => (
                       <div
                         key={video.id}
                         className="bg-white rounded-xl overflow-hidden"
                       >
                         <div className="relative w-full bg-black" style={{ height: '600px' }}>
-                          <iframe
-                            src={`https://www.youtube.com/embed/${video.videoId}?rel=0&modestbranding=1`}
-                            title={video.title}
-                            className="absolute inset-0 w-full h-full border-0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                            loading="lazy"
-                          />
+                          <ClinicVideo src={video.src} title={video.title} active={slideIndex === currentSlide} />
+
                         </div>
 
                         {/* Optional: Add video title/caption */}
@@ -168,27 +162,21 @@ const ClinicVideosResponsiveGrid = () => {
             <div className="overflow-hidden rounded-2xl">
               <div
                 className="flex transition-transform duration-700 ease-in-out"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                style={{ transform: `translateX(-${currentDesktopSlide * 100}%)` }}
               >
                 {desktopSlides.map((slideVideos, slideIndex) => (
                   <div
                     key={slideIndex}
                     className="min-w-full grid grid-cols-3 gap-6 pb-[10px] xl:gap-8"
                   >
-                    {slideVideos.map((video, videoIndex) => (
+                    {slideVideos.map((video) => (
                       <div
                         key={video.id}
                         className="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
                       >
                         <div className="relative w-full bg-black" style={{ height: '600px' }}>
-                          <iframe
-                            src={`https://www.youtube.com/embed/${video.videoId}?rel=0&modestbranding=1`}
-                            title={video.title}
-                            className="absolute inset-0 w-full h-full border-0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                            loading="lazy"
-                          />
+                          <ClinicVideo src={video.src} title={video.title} active={slideIndex === currentDesktopSlide} />
+
                         </div>
 
                       </div>

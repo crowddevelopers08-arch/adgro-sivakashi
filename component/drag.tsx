@@ -32,7 +32,6 @@ interface FormData {
 }
 
 interface FormFieldsProps {
-  isMobile: boolean;
   formData: FormData;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   handleConcernToggle: (concern: string) => void;
@@ -41,47 +40,54 @@ interface FormFieldsProps {
 }
 
 const FormFields = ({
-  isMobile,
   formData,
   handleInputChange,
   handleConcernToggle,
   handleSubmit,
   isSubmitting,
 }: FormFieldsProps) => (
-  <form onSubmit={handleSubmit} noValidate className={isMobile ? "space-y-3" : "space-y-4"}>
+  <form onSubmit={handleSubmit} noValidate className="grid min-w-0 gap-6 xl:grid-cols-2 xl:gap-x-7">
+    <div className="min-w-0 space-y-4">
     <input
       type="text"
       name="name"
+      aria-label="Your Full Name"
+      autoComplete="name"
       value={formData.name}
       onChange={handleInputChange}
       placeholder="Your Full Name"
-      className="w-full bg-transparent border-b border-gray-600 focus:outline-none py-2 px-2 text-sm"
+      className="w-full min-h-12 rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-[#202020] placeholder:text-gray-400 focus:border-[#e82625] focus:outline-none focus:ring-2 focus:ring-[#e82625]/20 disabled:opacity-50"
       disabled={isSubmitting}
     />
     <input
       type="tel"
       name="phone"
+      aria-label="Valid 10 Digit Phone No."
+      autoComplete="tel"
+      inputMode="tel"
       value={formData.phone}
       onChange={handleInputChange}
       placeholder="Valid 10 Digit Phone No."
-      className="w-full bg-transparent border-b border-gray-600 focus:outline-none py-2 px-2 text-sm"
+      className="w-full min-h-12 rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-[#202020] placeholder:text-gray-400 focus:border-[#e82625] focus:outline-none focus:ring-2 focus:ring-[#e82625]/20 disabled:opacity-50"
       disabled={isSubmitting}
     />
     <input
       type="email"
       name="email"
+      aria-label="Example@gmail.com"
+      autoComplete="email"
       value={formData.email}
       onChange={handleInputChange}
       placeholder="Example@gmail.com"
-      className="w-full bg-transparent border-b border-gray-600 focus:outline-none py-2 px-2 text-sm"
+      className="w-full min-h-12 rounded-xl border border-gray-200 bg-white px-4 py-3 text-base text-[#202020] placeholder:text-gray-400 focus:border-[#e82625] focus:outline-none focus:ring-2 focus:ring-[#e82625]/20 disabled:opacity-50"
       disabled={isSubmitting}
     />
 
     <div className="pt-1">
-      <p className="text-xs text-gray-400 mb-2">What Are Your Concerns</p>
+      <p className="text-[13px] font-medium text-gray-600 mb-3">What Are Your Concerns</p>
       <div className="flex flex-wrap gap-2">
         {CONCERN_OPTIONS.map((concern, index) => (
-          <label key={index} className="flex items-center gap-1 bg-[#2c2c2c] px-3 py-1.5 rounded-full text-xs cursor-pointer hover:bg-[#3c3c3c] transition">
+          <label key={index} className={`flex min-h-10 items-center gap-2 border px-3 py-2 rounded-lg text-xs cursor-pointer transition-colors ${formData.concerns.includes(concern) ? "border-[#e82625]/60 bg-[#e82625]/10" : "border-gray-200 bg-white hover:bg-[#fff0f0]"}`}>
             <input
               type="checkbox"
               checked={formData.concerns.includes(concern)}
@@ -95,17 +101,19 @@ const FormFields = ({
       </div>
     </div>
 
+    </div>
+    <div className="min-w-0 space-y-6 xl:border-l xl:border-gray-200 xl:pl-7">
     <div className="pt-1">
-      <p className="text-xs text-gray-400 mb-2">Select Your Hair Loss Stage</p>
-      <div className="grid grid-cols-5 gap-2">
+      <p className="text-[13px] font-medium text-gray-600 mb-3">Select Your Hair Loss Stage</p>
+      <div className="grid grid-cols-3 gap-2 min-[400px]:grid-cols-5">
         {HAIR_LOSS_STAGE_OPTIONS.map((stage) => (
           <label
             key={stage.id}
-            className={`cursor-pointer overflow-hidden rounded-xl border transition ${
+            className={`min-w-0 cursor-pointer overflow-hidden rounded-xl border transition focus-within:ring-2 focus-within:ring-[#e82625] ${
               formData.hairLossStage === stage.label
                 ? "border-[#e82625] ring-2 ring-[#e82625]/40"
-                : "border-gray-700 hover:border-gray-500"
-            } bg-[#2c2c2c] ${isSubmitting ? "opacity-60 pointer-events-none" : ""}`}
+                : "border-gray-200 hover:border-[#e82625]/40"
+            } bg-white ${isSubmitting ? "opacity-60 pointer-events-none" : ""}`}
           >
             <input
               type="radio"
@@ -116,20 +124,20 @@ const FormFields = ({
               className="sr-only"
               disabled={isSubmitting}
             />
-            <div className="relative mx-auto h-14 w-14 bg-white">
-              <Image src={stage.imageSrc} alt={stage.label} fill sizes="56px" className="object-cover" />
+            <div className="relative aspect-square w-full bg-white">
+              <Image src={stage.imageSrc} alt={stage.label} fill sizes="(max-width: 399px) 27vw, (max-width: 1023px) 16vw, 90px" className="object-contain" />
             </div>
-            <div className="py-1 text-center text-[10px] text-white font-medium">{stage.label}</div>
+            <div className="py-2 text-center text-[11px] text-[#202020] font-medium">{stage.label}</div>
           </label>
         ))}
       </div>
     </div>
 
     <div className="pt-1">
-      <p className="text-xs text-gray-400 mb-2">Are you willing to visit Adgro Velachery?</p>
-      <div className="flex gap-3">
+      <p className="text-[13px] font-medium text-gray-600 mb-3">Are you willing to visit Adgro Sivakasi?</p>
+      <div className="grid grid-cols-2 gap-3">
         {["yes", "no"].map((option) => (
-          <label key={option} className="flex items-center gap-2 bg-[#2c2c2c] px-3 py-2 rounded-full text-sm cursor-pointer hover:bg-[#3c3c3c] transition">
+          <label key={option} className={`flex min-h-11 items-center justify-center gap-2 border px-3 py-2 rounded-xl text-sm cursor-pointer transition-colors ${formData.willingToVisit === option ? "border-[#e82625]/60 bg-[#e82625]/10" : "border-gray-200 bg-white hover:bg-[#fff0f0]"}`}>
             <input
               type="radio"
               name="willingToVisit"
@@ -145,10 +153,11 @@ const FormFields = ({
       </div>
     </div>
 
+    </div>
     <button
       type="submit"
       disabled={isSubmitting}
-      className="mt-3 w-full bg-[#e82625] hover:bg-[#c41e1d] transition text-white py-3.5 px-8 rounded-[10px] text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+      className="xl:col-span-2 mt-1 w-full bg-[#e82625] hover:bg-[#c41e1d] transition text-white py-3.5 px-8 rounded-[10px] text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {isSubmitting ? "Sending..." : "Get My Free Consultation"}
     </button>
@@ -208,11 +217,11 @@ const RequestCallbackSection = () => {
       return false;
     }
     if (!formData.willingToVisit) {
-      setSubmitStatus({ type: "error", message: "Please answer whether you are willing to visit Adgro Velachery" });
+      setSubmitStatus({ type: "error", message: "Please answer whether you are willing to visit Adgro Sivakasi" });
       return false;
     }
     if (formData.willingToVisit !== "yes") {
-      setSubmitStatus({ type: "error", message: "Form submission is available only for users willing to visit Adgro Velachery" });
+      setSubmitStatus({ type: "error", message: "Form submission is available only for users willing to visit Adgro Sivakasi" });
       return false;
     }
     return true;
@@ -231,20 +240,24 @@ const RequestCallbackSection = () => {
     setSubmitStatus({ type: null, message: "" });
 
     try {
+      const concern = [
+        formData.concerns.length ? `Concerns: ${formData.concerns.join(", ")}` : "",
+        `Hair loss stage: ${formData.hairLossStage}`,
+      ]
+        .filter(Boolean)
+        .join(" | ");
+
       const leadData = {
+        formName: "adgro-sivakasi-leads",
+        source: "Adgro Hair Sivakasi Website",
         name: formData.name,
         phone: formData.phone,
-        email: formData.email || undefined,
-        procedure: formData.concerns.join(", "),
-        concerns: formData.concerns,
-        hairLossStage: formData.hairLossStage,
-        willingToVisit: formData.willingToVisit === "yes",
-        source: "Adgro Hair Velachery Website",
+        email: formData.email,
+        concern,
         pageUrl: typeof window !== "undefined" ? window.location.href : "",
-        userAgent: typeof window !== "undefined" ? window.navigator.userAgent : "",
       };
 
-      const response = await fetch("/api/contact-form", {
+      const response = await fetch("/api/submissions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(leadData),
@@ -255,7 +268,7 @@ const RequestCallbackSection = () => {
       if (response.ok) {
         router.push("/thank-you");
       } else {
-        throw new Error(data.details || data.error || "Failed to submit form");
+        throw new Error(data.error || "Failed to submit form");
       }
     } catch (error) {
       setSubmitStatus({
@@ -314,62 +327,41 @@ const RequestCallbackSection = () => {
         </div>
       )}
 
-      <section id="form" className="w-full scroll-mt-24 bg-white py-8 md:py-12 lg:py-40">
-        <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 flex justify-center">
-          <div className="relative w-full lg:w-[1280px]">
-
-            {/* MOBILE FORM */}
-            <div className="block lg:hidden w-full mb-6">
-              <div className="bg-[#1c1c1c] text-white rounded-2xl p-6">
-                <h3 className="text-xl font-bold mb-1">
+      <section id="form" className="w-full scroll-mt-24 bg-white px-4 py-10 sm:px-6 sm:py-14 lg:py-10">
+        <div className="mx-auto max-w-[1280px]">
+          <div className="mb-8 flex flex-col items-center gap-4 text-center">
+                <h2 className="mx-auto max-w-[1000px] text-balance text-[26px] sm:text-[34px] lg:text-[36px] font-extrabold leading-tight text-[#202020]">
                   Get Your Free Hair Analysis - No Commitment, No Cost.
-                </h3>
-                <p className="text-xs opacity-70 mb-4">
+                </h2>
+                <p className="mx-auto max-w-[600px] text-[13px] leading-relaxed text-gray-500">
                   Tell us about your concern and we will call you back within 24 hours.
                 </p>
-                {submitStatus.type && (
-                  <div className={`mb-4 p-3 rounded-lg text-sm ${submitStatus.type === "success" ? "bg-green-500/20 text-green-200" : "bg-red-500/20 text-red-200"}`}>
-                    {submitStatus.message}
-                  </div>
-                )}
-                <FormFields isMobile={true} {...sharedFormProps} />
-              </div>
-            </div>
-
-            {/* RED TESTIMONIAL PANEL */}
-            <div className="w-full lg:h-[400px] bg-[#e82625] rounded-2xl flex flex-col lg:flex-row items-center justify-center lg:justify-end px-6 md:px-10 lg:px-16 py-10 lg:py-0">
-              <div className="w-full lg:max-w-[480px] text-white">
-                <h3 className="text-xl sm:text-2xl md:text-[26px] font-bold mb-4 text-center lg:text-left">
+          </div>
+          <div className="grid items-stretch gap-5 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.5fr)] lg:gap-7">
+            <div className="relative order-2 flex min-w-0 flex-col justify-center overflow-hidden rounded-[24px] bg-[#1c1c1c] p-6 sm:p-8 lg:order-1">
+              <span aria-hidden="true" className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full border-[40px] border-[#e82625]/10" />
+              <span aria-hidden="true" className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[#e82625] pt-3 font-serif text-[48px] leading-none text-white">&ldquo;</span>
+              <div className="relative flex w-full flex-col gap-6 text-white">
+                <h3 className="text-[22px] sm:text-[26px] font-bold leading-tight">
                   Hear From Our Happy Patients
                 </h3>
-                <p className="text-sm sm:text-[15px] leading-relaxed mb-6 text-center lg:text-left opacity-95">
+                <p className="text-[15px] leading-[1.9] text-white/80">
                   I started seeing results within the first two sessions. Four months in, my hair fall has reduced drastically. The doctor was warm, patient, and genuinely cared about my progress.
                 </p>
-                <div className="flex items-center justify-center lg:justify-start gap-3">
-                  <img src="/unnamed.png" alt="Archana Pandian" className="w-12 h-12 rounded-full object-cover" />
-                  <p className="font-semibold text-[15px]">Archana Pandian, Velachery Patient</p>
+                <div className="flex items-center gap-3">
+                  <img src="/unnamed.png" alt="Archana Pandian" className="h-12 w-12 shrink-0 rounded-full border-2 border-white/40 object-cover" />
+                  <p className="font-semibold text-[13px] text-white">Archana Pandian, Sivakasi Patient</p>
                 </div>
               </div>
             </div>
-
-            {/* DESKTOP FORM — absolute over red panel */}
-            <div className="hidden lg:block lg:absolute top-[-168px] left-8 xl:left-14 w-full lg:max-w-[520px]">
-              <div className="bg-[#1c1c1c] text-white rounded-2xl p-8">
-                <h3 className="text-2xl font-bold mb-1">
-                  Get Your Free Hair Analysis - No Commitment, No Cost.
-                </h3>
-                <p className="text-sm opacity-70 mb-4">
-                  Tell us about your concern and we will call you back within 24 hours.
-                </p>
+            <div className="order-1 min-w-0 rounded-[24px] border border-gray-200 bg-white p-5 text-[#202020] shadow-[0_10px_40px_rgba(0,0,0,0.05)] sm:p-7 lg:order-2 xl:p-8">
                 {submitStatus.type && (
-                  <div className={`mb-4 p-3 rounded-lg text-sm ${submitStatus.type === "success" ? "bg-green-500/20 text-green-200" : "bg-red-500/20 text-red-200"}`}>
+                  <div role="status" aria-live="polite" className={`mb-4 p-3 rounded-lg text-sm ${submitStatus.type === "success" ? "bg-green-50 text-green-800" : "bg-red-50 text-red-800"}`}>
                     {submitStatus.message}
                   </div>
                 )}
-                <FormFields isMobile={false} {...sharedFormProps} />
-              </div>
+                <FormFields {...sharedFormProps} />
             </div>
-
           </div>
         </div>
       </section>

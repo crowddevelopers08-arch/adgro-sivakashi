@@ -47,7 +47,7 @@ export const AppointmentForm: React.FC = () => {
       newErrors.fullName = "Full name is required";
     }
 
-    // Phone validation - exactly 10 digits
+    // Phone - exactly 10 digits
     const phoneRegex = /^\d{10}$/;
     if (!formData.phone) {
       newErrors.phone = "Phone number is required";
